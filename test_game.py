@@ -26,13 +26,14 @@ def main(message):
 
 def play(message):
     global sweets, take, turn
-    while sweets > 0:
-        if sweets > 28:
+    while sweets > 28:
+        if sweets > 28 and turn == "User":
             take = int(message.text)
             sweets -= take
             bot.send_message(message.chat.id,
                             f'Осталось {sweets}')
             turn = "Bot"
+        elif sweets > 28 and turn == "Bot":    
             take = random.randint(1, 28)
             sweets = sweets - take
             bot.send_message(message.chat.id, f'Бот взял {take}')
@@ -42,12 +43,11 @@ def play(message):
             turn = "User"
             bot.register_next_step_handler(msg, play)
             return
-        else:
-            if turn == "Bot":
-                bot.send_message(message.chat.id, f'Бот победил')
-            else:
-                bot.send_message(message.chat.id, f'Человек победил машину')
-            return
+    if turn == "Bot":
+        bot.send_message(message.chat.id, f'Бот победил')
+    else:
+        bot.send_message(message.chat.id, f'Человек победил машину')
+    return
 
 
 # @bot.message_handler(func=lambda message: True)
@@ -72,3 +72,31 @@ def play(message):
 
 
 bot.polling(none_stop=True)
+
+
+
+# def play(message):
+#     global sweets, take, turn
+#     while sweets > 0:
+#         if sweets > 28:
+#             if turn == "User":
+#                 take = int(message.text)
+#                 sweets -= take
+#                 bot.send_message(message.chat.id,
+#                                 f'Осталось {sweets}')
+#                 turn = "Bot"
+#             else:
+#                 take = random.randint(1, 28)
+#                 sweets = sweets - take
+#                 bot.send_message(message.chat.id, f'Бот взял {take}')
+#                 bot.send_message(message.chat.id,
+#                                 f'Осталось {sweets}')
+#                 msg = bot.send_message(message.chat.id, '{Хм... Ну давай продолжим! Тяни дальше')
+#                 turn = "User"
+#                 bot.register_next_step_handler(msg, play)
+#                 return
+#     if turn == "Bot":
+#         bot.send_message(message.chat.id, f'Бот победил')
+#     else:
+#         bot.send_message(message.chat.id, f'Человек победил машину')
+#     return
