@@ -1,6 +1,6 @@
 import telebot
 import random
- 
+
 from telebot import types
 bot = telebot.TeleBot("5868878555:AAEetjhGk43IZ2LasbIa9vKbzTNCQ92slrs")
 
@@ -48,7 +48,7 @@ def play(message):
             bot.register_next_step_handler(msg, play)
             return
     if turn == "Bot":
-        bot.send_message(message.chat.id, f'Бот забирает оставшиесяя {sweets} конфет')
+        bot.send_message(message.chat.id, f'Бот забирает оставшиеся {sweets} конфет')
         bot.send_message(message.chat.id, f'Бот победил!!! МАШИНА НЕПОБЕДИМА')
     else:
         bot.send_message(message.chat.id, f'Человек победил машину!')
