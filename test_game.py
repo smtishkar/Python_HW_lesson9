@@ -29,6 +29,10 @@ def play(message):
     while sweets > 28:
         if sweets > 28 and turn == "User":
             take = int(message.text)
+            while take > 28:
+                msg_low = bot.send_message(message.chat.id, f'Человек должен быть умнее, бери меньше 28 конфет')
+                bot.register_next_step_handler(msg_low, play)
+                return
             sweets -= take
             bot.send_message(message.chat.id,
                             f'Осталось {sweets}')
